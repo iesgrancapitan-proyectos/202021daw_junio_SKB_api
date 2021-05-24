@@ -75,4 +75,10 @@ return function (App $app)
     $app->options('/busqueda/{idAlumno}/{fecha}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
+	
+	// Todos los alumnos
+    $app->get('/alumnos', \App\Action\AlumnosReadAction::class)->setName('todos-alumnos');
+    $app->options('/alumnos', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
 };

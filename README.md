@@ -22,6 +22,5 @@ http-server
 Su uso está orientado a **dispositivos móviles**, tanto Android como iOS, donde la aplicación web se puede instalar como si fuera una aplicación nativa, ya que está adaptada para trabajar como **aplicación web progresiva** o PWA.
 
 ## Autores
-Rafael Jesús Nieto Cardador - [@rnicar245](https://github.com/rnicar245)
-
+Rafael Jesús Nieto Cardador - [@rnicar245](https://github.com/rnicar245)  
 Pablo Murillo Ávila - [@pxblx](https://github.com/pxblx)
