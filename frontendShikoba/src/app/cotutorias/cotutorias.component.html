@@ -1,0 +1,39 @@
+<ul class="nav gridUl bcblue">
+  <li class="nav-item logoShikoba">
+  </li>
+  <li class="nav-item">
+    <a class="nav-link lBlanco tAlCenter" [routerLink]="" (click)="locationIndex()">Partes</a>
+  </li>
+  <li class="nav-item bcLight">
+    <a class="lBlanco nav-link tAlCenter" [routerLink]="" >Cotutorías</a>
+  </li>
+  <li class="nav-item datosUsuario lBlanco">
+    <p class="datosP">{{api.usuario.nombre}} {{api.usuario.apellido1}}</p>
+    <button (click)="logout()">Logout</button>
+  </li>
+</ul>
+
+<form>
+  <div class="searchbar" [class.hide]="mostrarCartas">
+    <input class="form-control search" type="search" id="search1" aria-label="Search" placeholder="Tus cotutorías" mdbInput>
+  </div>
+</form>
+
+<div class="cartas" [class.hide]="mostrarCartas">
+  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let alumnosCot of api.alumnosCot" (click)="accedeAlumno(alumnosCot.idAlumno)">
+    <div class="card-header bigText">{{alumnosCot.idAlumno.nombre}} {{alumnosCot.idAlumno.apellido1}} {{alumnosCot.idAlumno.apellido2}}</div>
+    <div class="card-body">
+      <p class="card-title">Curso: {{alumnosCot.idAlumno.idCurso}}</p>
+    </div>
+  </button>
+</div>
+
+<h4 class="nombreAl" [class.hide]="mostrarAlumno">Informes de {{nombre}}</h4>
+
+<form class="nombreAl" name="fF" [class.hide]="mostrarAlumno" #itemForm="ngForm" (ngSubmit)="buscarFecha(fecha)">
+  <label for="fe">Fecha del parte
+    <input name="fec" type="date" [ngModel]="fecha" (ngModelChange)="fecha = $event" required />
+  </label>
+  <button type="submit">Enviar</button>
+</form>
+

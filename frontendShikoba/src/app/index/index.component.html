@@ -1,0 +1,72 @@
+
+<ul class="nav gridUl bcblue">
+  <li class="nav-item logoShikoba">
+  </li>
+  <li class="nav-item bcLight">
+    <a class="nav-link lBlanco tAlCenter" [routerLink]="">Partes</a>
+  </li>
+  <li class="nav-item">
+    <a class="lBlanco nav-link tAlCenter" [routerLink]="" (click)="locationCotutorias()">Cotutorías</a>
+  </li>
+  <li class="nav-item datosUsuario lBlanco">
+    <p class="datosP">{{api.usuario.nombre}} {{api.usuario.apellido1}}</p>
+    <button (click)="logout()">Logout</button>
+  </li>
+</ul>
+
+<form>
+  <div class="searchbar" [class.hide]="mostrarAlumnos">
+    <input class="form-control search" type="search" id="search1" aria-label="Search" placeholder="Buscar alumnos" mdbInput>
+  </div>
+</form>
+
+<div class="cartas" [class.hide]="mostrarAlumnos">
+  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let alumnosCot of api.alumnosCot" (click)="accedeAlumno(alumnosCot.idAlumno)">
+    <div class="card-header bigText">{{alumnosCot.idAlumno.nombre}} {{alumnosCot.idAlumno.apellido1}} {{alumnosCot.idAlumno.apellido2}}</div>
+    <div class="card-body">
+      <p class="card-title">Curso: {{alumnosCot.idAlumno.idCurso}}</p>
+    </div>
+  </button>
+</div>
+
+<h4 class="nombreAl" [class.hide]="mostrarForm" >Informe sobre {{nombre}}</h4>
+
+<form class="formulario" [class.hide]="mostrarForm" method="get" #itemForm="ngForm" (ngSubmit)="enviar()"> 
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="exampleFormControlSelect1">Asignatura</label>
+      <select [(ngModel)]="asignatura" class="form-control form-input" id="exampleFormControlSelect1" name="asignatura">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Fecha</label>
+    <input [(ngModel)]="fecha" type="date" class="form-control form-input" id="inputAddress" name="fecha">
+  </div>
+  <div class="form-group">
+    <label for="formControlRange">Comportamiento</label><br>
+    <select [(ngModel)]="comportamiento" class="form-control form-input" id="comportamiento" name="comportamiento">
+        <option>1</option>
+        <option>Malo</option>
+        <option>Regular</option>
+        <option>Bueno</option>
+        <option>Muy bueno</option>
+      </select>
+  </div>
+  <div class="form-group">
+    <label for="formControlRange">Actitud</label><br>
+    <select [(ngModel)]="actitud" class="form-control form-input" id="actitud" name="actitud">
+        <option>1</option>
+        <option>Mala</option>
+        <option>Regular</option>
+        <option>Buena</option>
+        <option>Muy buena</option>
+      </select>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Enviar"/>
+</form>

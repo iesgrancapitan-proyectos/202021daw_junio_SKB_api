@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shiko-cad97": {
+      "hosting": {
+        "proyectoshikoba": [
+          "shiko-cad97"
+        ]
+      }
+    }
+  }
+}
