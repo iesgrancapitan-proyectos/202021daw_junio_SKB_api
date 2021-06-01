@@ -20,7 +20,7 @@ final class ProfesorIdReadAction
         $profesorId = (int)$args['id'];
         $result = $this->profesorReader->getProfesorDetails($profesorId);
         $response->getBody()->write((string)json_encode($result));
-		
+        
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }

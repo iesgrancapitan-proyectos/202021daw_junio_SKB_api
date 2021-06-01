@@ -23,7 +23,7 @@ class AlumnoReaderRepository
 
         return (array) $row;
     }
-	
+    
     public function busqueda($busqueda): array
     {
         $rows = $this->connection->table('alumno')->where('nombre', 'LIKE', '%'.$busqueda.'%')->get();

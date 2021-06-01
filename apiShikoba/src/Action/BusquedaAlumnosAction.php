@@ -18,10 +18,10 @@ final class BusquedaAlumnosAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $busqueda = $args['busqueda'];
-		
+        
         $result = $this->alumnoReader->busqueda($busqueda);
-		
-		$alumnos = array();
+        
+        $alumnos = array();
         foreach($result as $objeto) {
             $alumnos[] = (array)$objeto;
         }

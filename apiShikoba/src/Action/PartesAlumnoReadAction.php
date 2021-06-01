@@ -18,8 +18,8 @@ final class PartesAlumnoReadAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $alumnoId = (int)$args['alumnoId'];
-		$fechaDesde = (string)$args['fechaDesde'];
-		$fechaHasta = (string)$args['fechaHasta'];
+        $fechaDesde = (string)$args['fechaDesde'];
+        $fechaHasta = (string)$args['fechaHasta'];
 
         $result = $this->parteReader->getByAlumnoFecha($alumnoId, $fechaDesde, $fechaHasta);
 

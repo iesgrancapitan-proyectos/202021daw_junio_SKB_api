@@ -40,8 +40,8 @@ class ParteReaderRepository
 
         return (array) $resultado;
     }
-	
-	public function getByAlumnoFecha(int $alumnoId, string $fechaDesde, string $fechaHasta): array
+    
+    public function getByAlumnoFecha(int $alumnoId, string $fechaDesde, string $fechaHasta): array
     {
         $partes = ParteData::whereRaw('idAlumno = '.$alumnoId.' AND fecha BETWEEN \''.$fechaDesde.'\' AND \''.$fechaHasta.'\'')->get()->toArray();
 

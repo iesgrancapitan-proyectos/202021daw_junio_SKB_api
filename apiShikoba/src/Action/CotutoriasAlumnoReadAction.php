@@ -18,7 +18,7 @@ final class CotutoriasAlumnoReadAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $alumnoId = (int)$args['alumnoId'];
-		$fecha = (string)$args['fecha'];
+        $fecha = (string)$args['fecha'];
 
         $result = $this->cotutoriaAlumnoReader->getByAlumnoFecha($alumnoId, $fecha);
 

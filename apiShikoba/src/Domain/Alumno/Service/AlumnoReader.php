@@ -9,7 +9,7 @@ use App\Exception\ValidationException;
 final class AlumnoReader
 {
     private $repository;
-	
+    
     public function __construct(AlumnoReaderRepository $repository)
     {
         $this->repository = $repository;
@@ -23,8 +23,8 @@ final class AlumnoReader
 
         return $alumno;
     }
-	
-	public function busqueda($busqueda): array
+    
+    public function busqueda($busqueda): array
     {
         if (empty($busqueda)) throw new ValidationException('Se requiere un parámetro de búsqueda');
 

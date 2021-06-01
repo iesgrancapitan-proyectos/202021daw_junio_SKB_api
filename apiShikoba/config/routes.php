@@ -57,14 +57,14 @@ return function (App $app)
     $app->options('/materias', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
-	
-	// Búsqueda alumnos
+
+    // Búsqueda alumnos
     $app->get('/busqueda/{busqueda}', \App\Action\BusquedaAlumnosAction::class)->setName('busqueda');
     $app->options('/busqueda/{busqueda}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
-	
-	// Partes por alumno y rango de fechas
+
+    // Partes por alumno y rango de fechas
     $app->get('/partesAlumnoFecha/{alumnoId}/{fechaDesde}/{fechaHasta}', \App\Action\PartesAlumnoReadAction::class)->setName('partes-alumno-fecha');
     $app->options('/busqueda/{alumnoId}/{fechaDesde}/{fechaHasta}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;

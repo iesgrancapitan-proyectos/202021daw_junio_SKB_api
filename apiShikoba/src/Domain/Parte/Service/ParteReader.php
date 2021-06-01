@@ -30,8 +30,8 @@ final class ParteReader
         
         return $partes;
     }
-	
-	public function getByAlumnoFecha(int $alumnoId, string $fechaDesde, string $fechaHasta)
+    
+    public function getByAlumnoFecha(int $alumnoId, string $fechaDesde, string $fechaHasta)
     {
         $partes = $this->repository->getByAlumnoFecha($alumnoId, $fechaDesde, $fechaHasta);
         

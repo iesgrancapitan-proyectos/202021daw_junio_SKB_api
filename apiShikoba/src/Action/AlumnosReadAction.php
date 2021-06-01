@@ -18,14 +18,14 @@ final class AlumnosReadAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $result = $this->alumnoReader->getAllAlumnos();
-		
-		$alumnos = array();
+        
+        $alumnos = array();
         foreach($result as $objeto) {
             $alumnos[] = (array)$objeto;
         }
-		
+        
         $response->getBody()->write((string)json_encode($alumnos));
-		
+        
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }

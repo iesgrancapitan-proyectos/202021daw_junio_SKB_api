@@ -35,19 +35,19 @@ class CotutoriaAlumnoReaderRepository
 
     public function getByAlumnoFecha(int $idAlumno, string $fecha): array
     {
-		$cotutorias = CotutoriaAlumnoData::whereRaw('idAlumno = '.$idAlumno.' AND fecha = \''.$fecha.'\'')->get()->toArray();
+        $cotutorias = CotutoriaAlumnoData::whereRaw('idAlumno = '.$idAlumno.' AND fecha = \''.$fecha.'\'')->get()->toArray();
 
         $resultado= [];
 
-		foreach ($cotutorias as $valor) {
-			$valor['idProfesor'] = CotutoriaAlumnoData::find($valor['id'])->profesor->toArray();
-			$valor['idAlumno'] = CotutoriaAlumnoData::find($valor['id'])->alumno->toArray();
-			$valor['idMateria'] = CotutoriaAlumnoData::find($valor['id'])->materia->toArray();
-			$valor['idActitud'] = CotutoriaAlumnoData::find($valor['id'])->actitud->toArray();
-			$valor['idComportamiento'] = CotutoriaAlumnoData::find($valor['id'])->comportamiento->toArray();
-			$resultado[] = $valor;
-		}
+        foreach ($cotutorias as $valor) {
+            $valor['idProfesor'] = CotutoriaAlumnoData::find($valor['id'])->profesor->toArray();
+            $valor['idAlumno'] = CotutoriaAlumnoData::find($valor['id'])->alumno->toArray();
+            $valor['idMateria'] = CotutoriaAlumnoData::find($valor['id'])->materia->toArray();
+            $valor['idActitud'] = CotutoriaAlumnoData::find($valor['id'])->actitud->toArray();
+            $valor['idComportamiento'] = CotutoriaAlumnoData::find($valor['id'])->comportamiento->toArray();
+            $resultado[] = $valor;
+        }
 
-		return (array) $resultado;
+        return (array) $resultado;
     }
 }

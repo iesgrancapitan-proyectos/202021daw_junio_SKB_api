@@ -24,7 +24,7 @@ final class CotutoriaAlumnoCreateAction
         $result = [
             'id' => $cotutoriaAlumnoId
         ];
-		
+        
         $response->getBody()->write((string)json_encode($result));
 
         return $response

@@ -14,7 +14,7 @@ final class ParteReadAction
     {
         $this->parteReader = $parteReader;
     }
-	
+    
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $parteId = (int)$args['id'];

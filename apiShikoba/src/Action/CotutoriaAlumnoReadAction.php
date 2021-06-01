@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 final class CotutoriaAlumnoReadAction
 {
     private $cotutoriaAlumnoReader;
-	
+    
     public function __construct(CotutoriaAlumnoReader $cotutoriaAlumnoReader)
     {
         $this->cotutoriaAlumnoReader = $cotutoriaAlumnoReader;
