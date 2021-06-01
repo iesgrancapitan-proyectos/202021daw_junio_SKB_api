@@ -6,21 +6,10 @@ use App\Domain\Cotutoria\Data\CotutoriaData;
 use App\Domain\Cotutoria\Repository\CotutoriaReaderRepository;
 use App\Exception\ValidationException;
 
-/**
- * Service.
- */
 final class CotutoriaReader
 {
-    /**
-     * @var CotutoriaReaderRepository
-     */
     private $repository;
 
-    /**
-     * The constructor.
-     *
-     * @param CotutoriaReaderRepository $repository The repository
-     */
     public function __construct(CotutoriaReaderRepository $repository)
     {
         $this->repository = $repository;

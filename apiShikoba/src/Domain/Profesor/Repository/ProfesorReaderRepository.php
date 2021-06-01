@@ -8,16 +8,8 @@ use Illuminate\Database\Connection;
 
 class ProfesorReaderRepository
 {
-    /**
-     * @var Connection
-     */
     private $connection;
 
-    /**
-     * The constructor.
-     *
-     * @param Connection $connection The database connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

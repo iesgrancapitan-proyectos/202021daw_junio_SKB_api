@@ -8,24 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ParteData extends Model
 {
-    /**
-    * The table associated with the model
-    *
-    * @var string
-    */ 
     protected $table = 'partes';
 
-    /**
-     * Get profesor que puso el parte
-     */
     public function profesor()
     {              
         return $this->belongsTo(ProfesorData::class, 'idProfesor');
     }
 
-    /**
-     * Get alumno al que se le puso el parte
-     */
     public function alumno()
     {
         return $this->belongsTo(AlumnoData::class,'idAlumno');

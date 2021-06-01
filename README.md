@@ -22,7 +22,7 @@ http-server
 Su uso está orientado a **dispositivos móviles**, tanto Android como iOS, donde la aplicación web se puede instalar como si fuera una aplicación nativa, ya que está adaptada para trabajar como **aplicación web progresiva** o PWA.
 
 ## Wiki
-Puedes visitar la wiki del proyecto en [este enlace](https://github.com/iesgrancapitan-proyectos/202021daw_junio_nombrepi-pxblx/wiki).
+Puedes visitar la Wiki del proyecto en [este enlace](https://github.com/iesgrancapitan-proyectos/202021daw_junio_nombrepi-pxblx/wiki).
 
 ## Autores
 Rafael Jesús Nieto Cardador - [@rnicar245](https://github.com/rnicar245)  

@@ -50,7 +50,6 @@ return [
         $factory = new ConnectionFactory(new IlluminateContainer());
         $connection = $factory->make($container->get('settings')['db']);
 
-        // Disable the query log to prevent memory issues
         $connection->disableQueryLog();
 
         $resolver = new \Illuminate\Database\ConnectionResolver();

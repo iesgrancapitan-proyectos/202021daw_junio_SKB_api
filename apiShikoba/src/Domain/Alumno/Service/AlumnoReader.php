@@ -6,21 +6,10 @@ use App\Domain\Alumno\Data\AlumnoData;
 use App\Domain\Alumno\Repository\AlumnoReaderRepository;
 use App\Exception\ValidationException;
 
-/**
- * Service.
- */
 final class AlumnoReader
 {
-    /**
-     * @var AlumnoReaderRepository
-     */
     private $repository;
-
-    /**
-     * The constructor.
-     *
-     * @param AlumnoReaderRepository $repository The repository
-     */
+	
     public function __construct(AlumnoReaderRepository $repository)
     {
         $this->repository = $repository;

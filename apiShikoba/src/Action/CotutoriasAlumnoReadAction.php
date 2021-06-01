@@ -2,42 +2,21 @@
 
 namespace App\Action;
 
-use App\Domain\Cotutoria\Service\CotutoriaAlumnoReader;
+use App\Domain\CotutoriaAlumno\Service\CotutoriaAlumnoReader;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Action
- */
 final class CotutoriasAlumnoReadAction
 {
-    /**
-     * @var CotutoriaAlumnoReader
-     */
     private $cotutoriaAlumnoReader;
 
-    /**
-     * The constructor.
-     *
-     * @param CotutoriaAlumnoReader $cotutoriaReader The user reader
-     */
     public function __construct(CotutoriaAlumnoReader $cotutoriaReader)
     {
-        $this->cotutoriaReader = $cotutoriaReader;
+        $this->cotutoriaAlumnoReader = $cotutoriaReader;
     }
 
-    /**
-     * Invoke.
-     *
-     * @param ServerRequestInterface $request The request
-     * @param ResponseInterface $response The response
-     * @param array $args The route arguments
-     *
-     * @return ResponseInterface The response
-     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
-        // Collect input from the HTTP request
         $alumnoId = (int)$args['alumnoId'];
 		$fecha = (string)$args['fecha'];
 

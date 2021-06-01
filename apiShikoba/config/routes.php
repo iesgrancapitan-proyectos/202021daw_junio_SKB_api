@@ -65,18 +65,18 @@ return function (App $app)
     });
 	
 	// Partes por alumno y rango de fechas
-    $app->get('/partesAlumnoFecha/{idAlumno}/{fechaDesde}/{fechaHasta}', \App\Action\PartesAlumnoReadAction::class)->setName('partes-alumno-fecha');
-    $app->options('/busqueda/{idAlumno}/{fechaDesde}/{fechaHasta}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+    $app->get('/partesAlumnoFecha/{alumnoId}/{fechaDesde}/{fechaHasta}', \App\Action\PartesAlumnoReadAction::class)->setName('partes-alumno-fecha');
+    $app->options('/busqueda/{alumnoId}/{fechaDesde}/{fechaHasta}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
 
     // Cotutorías por alumno y fecha
-    $app->get('/cotutoriasAlumnoFecha/{idAlumno}/{fecha}', \App\Action\CotutoriasAlumnoReadAction::class)->setName('cotutorias-alumno-fecha');
-    $app->options('/busqueda/{idAlumno}/{fecha}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+    $app->get('/cotutoriasAlumnoFecha/{alumnoId}/{fecha}', \App\Action\CotutoriasAlumnoReadAction::class)->setName('cotutorias-alumno-fecha');
+    $app->options('/busqueda/{alumnoId}/{fecha}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
-	
-	// Todos los alumnos
+
+    // Todos los alumnos
     $app->get('/alumnos', \App\Action\AlumnosReadAction::class)->setName('todos-alumnos');
     $app->options('/alumnos', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
