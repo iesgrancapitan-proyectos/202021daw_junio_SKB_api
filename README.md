@@ -12,9 +12,12 @@ Para desplegar la API se necesita un servidor web (por ejemplo **Apache**) y **C
 ```
 composer install
 ```
-Para desplegar el frontend es necesario tener instalados **Node.js** y **Angular**. Se utilizan los siguientes comandos desde el directorio raíz:
+Para desplegar el frontend es necesario tener instalados **Node.js** y **Angular**. Se utiliza el siguiente comando desde el directorio raíz:
 ```
-npm i -g http-server
+npm install
+```
+Y después, desde el directorio dist/proyectoShikoba:
+```
 http-server
 ```
 
