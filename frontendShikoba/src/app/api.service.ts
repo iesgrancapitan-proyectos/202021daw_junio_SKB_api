@@ -7,24 +7,29 @@ import { AuthService } from './auth.service';
 })
 export class ApiService {
 
-  partes:any[] = [];
   usuario:any;
   alumnosCot:any[] = [];
   materias:any[] = [];
   cotutorias:any[] = [];
+  alumnos:any[] = [];
+  informesAlumno:any[] = [];
 
-  constructor(public auth:AuthService) { }
+  constructor(public auth:AuthService, private http:HttpClient) { }
   
-  getPartes(){
+  init(){
+      this.getProfesorByEmail(this.auth.email);
+      this.getPartesCotutorias();
+      this.getMaterias();
+  }
+
+  getProfesorByEmail(email:string){
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/profesores/121/partes', false);
+    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/profesores/email/'+email, false);
     let fuera = this;
     xhr.onload = function(){
       if(xhr.status >= 200 && xhr.status < 400){
-        fuera.partes = JSON.parse(xhr.response);
-        fuera.getProfesorByEmail(fuera.auth.email);
-        fuera.getPartesCotutorias();
-        //fuera.getMaterias();
+        fuera.usuario = JSON.parse(xhr.response);
+        fuera.getAlumnosCotutorizados(fuera.auth.email);
       }else{
         console.log("Error")
       }
@@ -35,15 +40,15 @@ export class ApiService {
     xhr.send();
   }
 
-  getProfesorByEmail(email:string){
+  getAlumnos(){
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/profesores/email/'+email, false);
-    
+    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/alumnos', false);
     let fuera = this;
+    console.log("ge");
     xhr.onload = function(){
       if(xhr.status >= 200 && xhr.status < 400){
-        fuera.usuario = JSON.parse(xhr.response);
-        fuera.getAlumnosCotutorizados(fuera.auth.email);
+        fuera.alumnos = JSON.parse(xhr.response);
+        console.log(fuera.alumnos);
       }else{
         console.log("Error")
       }
@@ -62,7 +67,6 @@ export class ApiService {
     xhr.onload = function(){
       if(xhr.status >= 200 && xhr.status < 400){
         fuera.alumnosCot = JSON.parse(xhr.response);
-        console.log(fuera.alumnosCot)
       }else{
         console.log("Error")
       }
@@ -77,9 +81,29 @@ export class ApiService {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/cotutorias', false);
     let fuera = this;
+    console.log("getPartesCot");
     xhr.onload = function(){
       if(xhr.status >= 200 && xhr.status < 400){
         fuera.cotutorias = JSON.parse(xhr.response);
+        console.log("getPartesCot");
+      }else{
+        console.log("Error")
+      }
+    }
+    xhr.onerror = function(){
+      console.log("Error en la llamada");
+    }
+    xhr.send();
+  }
+
+  getInformesDia(fecha:string, idAlumno:string){
+    console.log(fecha);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/cotutoriasAlumnoFecha/'+idAlumno+'/'+fecha, false);
+    let fuera = this;
+    xhr.onload = function(){
+      if(xhr.status >= 200 && xhr.status < 400){
+        fuera.informesAlumno = JSON.parse(xhr.response);
       }else{
         console.log("Error")
       }
@@ -91,17 +115,13 @@ export class ApiService {
   }
 
   getMaterias(){
-    //
-  }
-
-  createParte(idalumno:string, idprofesor:string, idmateria:string, fecha:string, hora:string, actitud:string, comportamiento:string){
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "https://cpd.iesgrancapitan.org:9123/cotutorias?idAlumno="+idalumno+"&idProfesor="+idprofesor+"&idMateria="+idmateria+"&fecha="+fecha+"&hora="+hora+"&actitud="+actitud+"&comportamiento="+comportamiento, false);
-    
+    xhr.open('GET', 'https://cpd.iesgrancapitan.org:9123/materias', false);
     let fuera = this;
     xhr.onload = function(){
       if(xhr.status >= 200 && xhr.status < 400){
-        console.log("Insertado con exito");
+        console.log(JSON.parse(xhr.response))
+        fuera.materias = JSON.parse(xhr.response);
       }else{
         console.log("Error")
       }
@@ -110,5 +130,11 @@ export class ApiService {
       console.log("Error en la llamada");
     }
     xhr.send();
+  }
+
+  createParte(idalumno:string, idprofesor:string, idmateria:string, fecha:string, hora:string, actitud:string, comportamiento:string){
+    
+    this.http.post<any>('https://cpd.iesgrancapitan.org:9123/cotutorias/crear', {"idAlumno": idalumno,"idProfesor": idprofesor,"idMateria": idmateria,"fecha": fecha,"hora": hora,"idActitud": actitud,"idComportamiento": comportamiento}).subscribe(data => {
+    })
   }
 }

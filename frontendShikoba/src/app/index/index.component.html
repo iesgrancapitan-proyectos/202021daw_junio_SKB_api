@@ -21,10 +21,10 @@
 </form>
 
 <div class="cartas" [class.hide]="mostrarAlumnos">
-  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let alumnosCot of api.alumnosCot" (click)="accedeAlumno(alumnosCot.idAlumno)">
-    <div class="card-header bigText">{{alumnosCot.idAlumno.nombre}} {{alumnosCot.idAlumno.apellido1}} {{alumnosCot.idAlumno.apellido2}}</div>
+  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let cotutorias of api.cotutorias" (click)="accedeAlumno(cotutorias)">
+    <div class="card-header bigText">{{cotutorias.idAlumno.nombre}} {{cotutorias.idAlumno.apellido1}} {{cotutorias.idAlumno.apellido2}}</div>
     <div class="card-body">
-      <p class="card-title">Curso: {{alumnosCot.idAlumno.idCurso}}</p>
+      <p class="card-title">Curso: {{cotutorias.idAlumno.idCurso}}</p>
     </div>
   </button>
 </div>
@@ -36,11 +36,7 @@
     <div class="form-group col-md-6">
       <label for="exampleFormControlSelect1">Asignatura</label>
       <select [(ngModel)]="asignatura" class="form-control form-input" id="exampleFormControlSelect1" name="asignatura">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option *ngFor="let materia of api.materias" [value]="materia.id">{{materia.nombre}}</option>
       </select>
     </div>
   </div>
@@ -48,25 +44,64 @@
     <label for="inputAddress">Fecha</label>
     <input [(ngModel)]="fecha" type="date" class="form-control form-input" id="inputAddress" name="fecha">
   </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="exampleFormControlSelect1">Hora</label>
+      <select [(ngModel)]="hora" class="form-control form-input" id="exampleFormControlSelect1" name="hora">
+        <option value="1">1ª</option>
+        <option value="2">2ª</option>
+        <option value="3">3ª</option>
+        <option value="4">4ª</option>
+        <option value="5">5ª</option>
+        <option value="6">6ª</option>
+      </select>
+    </div>
+  </div>
   <div class="form-group">
     <label for="formControlRange">Comportamiento</label><br>
-    <select [(ngModel)]="comportamiento" class="form-control form-input" id="comportamiento" name="comportamiento">
-        <option>1</option>
-        <option>Malo</option>
-        <option>Regular</option>
-        <option>Bueno</option>
-        <option>Muy bueno</option>
-      </select>
+    <div>
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col">1</th>
+          <th scope="col">2</th>
+          <th scope="col">3</th>
+          <th scope="col">4</th>
+          <th scope="col">5</th>
+        </tr>
+      </table >
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="1" name="comportamiento" value="1"></th>
+          <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="2" name="comportamiento" value="2"></th>
+          <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="3" name="comportamiento" value="3"></th>
+          <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="4" name="comportamiento" value="4"></th>
+          <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="5" name="comportamiento" value="5"></th>
+        </tr>
+      </table>
+    </div>
   </div>
   <div class="form-group">
     <label for="formControlRange">Actitud</label><br>
-    <select [(ngModel)]="actitud" class="form-control form-input" id="actitud" name="actitud">
-        <option>1</option>
-        <option>Mala</option>
-        <option>Regular</option>
-        <option>Buena</option>
-        <option>Muy buena</option>
-      </select>
+    <div>
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col">1</th>
+          <th scope="col">2</th>
+          <th scope="col">3</th>
+          <th scope="col">4</th>
+          <th scope="col">5</th>
+        </tr>
+      </table >
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col"><input [(ngModel)]="actitud" type="radio" id="1" name="actitud" value="1"></th>
+          <th scope="col"><input [(ngModel)]="actitud" type="radio" id="2" name="actitud" value="2"></th>
+          <th scope="col"><input [(ngModel)]="actitud" type="radio" id="3" name="actitud" value="3"></th>
+          <th scope="col"><input [(ngModel)]="actitud" type="radio" id="4" name="actitud" value="4"></th>
+          <th scope="col"><input [(ngModel)]="actitud" type="radio" id="5" name="actitud" value="5"></th>
+        </tr>
+      </table>
+    </div>
   </div>
   <input type="submit" class="btn btn-primary" value="Enviar"/>
 </form>

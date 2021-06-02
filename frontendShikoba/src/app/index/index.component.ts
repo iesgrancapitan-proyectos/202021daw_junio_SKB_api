@@ -14,6 +14,7 @@ export class IndexComponent implements OnInit {
   mostrarForm:boolean = true;
 
   nombre:string = "";
+  idAlumno:string ="";
   asignatura:string = "";
   fecha:string = "";
   comportamiento:string = "";
@@ -21,8 +22,11 @@ export class IndexComponent implements OnInit {
   hora:string = "";
 
   ngOnInit(): void{
-    this.api.getPartes();
-    console.log(this.api.usuario);
+    console.log(this.auth.email)
+    this.api.init();
+    this.api.getPartesCotutorias();
+    
+    console.log(this.api.cotutorias);
     console.log(this.mostrarAlumnos);
     console.log(this.mostrarForm);
 
@@ -36,16 +40,26 @@ export class IndexComponent implements OnInit {
     this.auth.locationCotutorias();
   }
 
-  accedeAlumno(alumno:any){
-    this.mostrarAlumnos = true;
-    this.mostrarForm = false;
-    this.nombre = alumno.nombre+" "+alumno.apellido1+" "+alumno.apellido2;
-    console.log(alumno);
+  accedeAlumno(cotutorias:any){
+    this.nombre = cotutorias.idAlumno.nombre+" "+cotutorias.idAlumno.apellido1+" "+cotutorias.idAlumno.apellido2;
+    this.idAlumno = cotutorias.idAlumno.id;
+    this.cambiarVista();
+  }
+
+  cambiarVista(){
+    if(this.mostrarAlumnos){
+      this.mostrarAlumnos = false;
+      this.mostrarForm = true;
+    }else{
+      this.mostrarAlumnos = true;
+      this.mostrarForm = false;
+    }
   }
 
   enviar(){
-    //this.api.createParte(this.nombre, '136', this.asignatura, this.fecha, this.hora, this.comportamiento, this.actitud)
-    console.log(this.nombre+" "+this.asignatura+" "+this.fecha+" "+this.comportamiento+" "+this.actitud);
+    console.log(this.actitud)
+    this.api.createParte(this.idAlumno, '136', this.asignatura, this.fecha, this.hora, this.comportamiento, this.actitud)
+    this.cambiarVista();
   }
 
 }
