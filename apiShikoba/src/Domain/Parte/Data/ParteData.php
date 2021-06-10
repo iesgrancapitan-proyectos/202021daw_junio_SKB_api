@@ -4,6 +4,7 @@ namespace App\Domain\Parte\Data;
 
 use App\Domain\Profesor\Data\ProfesorData;
 use App\Domain\Alumno\Data\AlumnoData;
+use App\Domain\ParteConducta\Data\ParteConductaData;
 use Illuminate\Database\Eloquent\Model;
 
 class ParteData extends Model
@@ -18,5 +19,10 @@ class ParteData extends Model
     public function alumno()
     {
         return $this->belongsTo(AlumnoData::class,'idAlumno');
+    }
+
+    public function parteConducta()
+    {
+        return $this->hasMany(ParteConductaData::class, 'partes_id');
     }
 }

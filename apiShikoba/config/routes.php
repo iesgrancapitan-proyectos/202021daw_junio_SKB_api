@@ -81,4 +81,22 @@ return function (App $app)
     $app->options('/alumnos', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
+
+    // Conductas
+    $app->get('/conductas', \App\Action\ConductaReadAction::class)->setName('conductas');
+    $app->options('/conductas', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
+
+    // Obtener conductas por id de parte
+    $app->get('/parteConducta/{idParte}', \App\Action\ParteConductaReadAction::class)->setName('parte-conductas');
+    $app->options('/parteConducta/{idParte}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
+
+    // Añadir un parte-conducta
+    $app->post('/crearParteConducta', \App\Action\ParteConductaCreateAction::class)->setName('parte-conducta-post');
+
+    // Añadir un parte
+    $app->post('/crearParte', \App\Action\ParteCreateAction::class)->setName('parte-post');
 };
