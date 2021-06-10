@@ -15,11 +15,11 @@ final class ConductaReader
         $this->repository = $repository;
     }
     
-    public function getConductasById(int $id_conducta)
+    public function getConductaById(int $id_conducta)
     {
-        $conductas = $this->repository->getById($id_conducta);
+        $conducta = $this->repository->getById($id_conducta);
         
-        return $conductas;
+        return $conducta;
     }
 
     public function getAllConductas()

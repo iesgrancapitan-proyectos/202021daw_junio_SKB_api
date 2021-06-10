@@ -82,13 +82,19 @@ return function (App $app)
         return $response;
     });
 
-    // Conductas
+    // Todas las conductas
     $app->get('/conductas', \App\Action\ConductaReadAction::class)->setName('conductas');
     $app->options('/conductas', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
 
-    // Obtener conductas por id de parte
+    // Conducta por ID
+    $app->get('/conducta/{idConducta}', \App\Action\ConductaIdReadAction::class)->setName('conducta-id');
+    $app->options('/conducta/{idConducta}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
+
+    // Conductas por ID de parte
     $app->get('/parteConducta/{idParte}', \App\Action\ParteConductaReadAction::class)->setName('parte-conductas');
     $app->options('/parteConducta/{idParte}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;

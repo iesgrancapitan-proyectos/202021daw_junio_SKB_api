@@ -18,9 +18,9 @@ class ConductaReaderRepository
 
     public function getById(int $id_conducta): array
     {
-        $conductas = ConductaData::where('id','=',$id_conducta)->get()->toArray();
+        $conducta = ConductaData::where('id','=',$id_conducta)->get()->toArray();
 
-        return (array) $conductas;
+        return (array) $conducta;
     }
 
     public function getAllConductas()
