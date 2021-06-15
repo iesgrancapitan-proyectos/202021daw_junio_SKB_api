@@ -105,4 +105,10 @@ return function (App $app)
 
     // Añadir un parte
     $app->post('/crearParte', \App\Action\ParteCreateAction::class)->setName('parte-post');
+
+    // Añadir un parte-sancion
+    $app->post('/crearParteSancion', \App\Action\ParteSancionCreateAction::class)->setName('parte-sancion-post');
+
+    // Añadir una sanción
+    $app->post('/crearSancion', \App\Action\SancionCreateAction::class)->setName('sancion-post');
 };

@@ -25,4 +25,9 @@ class ParteData extends Model
     {
         return $this->hasMany(ParteConductaData::class, 'partes_id');
     }
+
+    public function parteSancion()
+    {
+        return $this->hasOne(ParteSancionData::class, 'partes_id');
+    }
 }
