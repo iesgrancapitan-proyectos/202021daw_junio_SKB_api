@@ -111,4 +111,10 @@ return function (App $app)
 
     // Añadir una sanción
     $app->post('/crearSancion', \App\Action\SancionCreateAction::class)->setName('sancion-post');
+
+    // Obtener cursos
+    $app->get('/cursos', \App\Action\CursoReadAction::class)->setName('curso-get');
+    $app->options('/cursos', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
 };
