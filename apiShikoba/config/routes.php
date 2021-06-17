@@ -117,4 +117,10 @@ return function (App $app)
     $app->options('/cursos', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
         return $response;
     });
+
+    // Obtener curso por ID
+    $app->get('/curso/{idCurso}', \App\Action\CursoIdReadAction::class)->setName('curso-id-get');
+    $app->options('/curso/{idCurso}', function (ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+        return $response;
+    });
 };
