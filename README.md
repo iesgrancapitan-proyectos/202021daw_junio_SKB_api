@@ -5,14 +5,14 @@ Este proyecto surge de la idea de digitalizar el proceso de **gestión de las co
 
 Su finalidad consiste en dar una solución al profesorado para que pueda llevar el control sobre sus alumnos cotutelados y a su vez, evaluar la actitud y el comportamiento de los alumnos a los que se les esté llevando un seguimiento por parte de un cotutor. Además, debe incluir también la gestión de partes, que actualmente se hace a través del backend de la herramienta **Shikoba**.
 
-Para ello, se ha hecho uso de dos frameworks de PHP: **Slim y Angular**. Slim para la creación de una API que se encargará de dar respuesta a las peticiones y Angular para el desarrollo del frontend.
+Para ello, se ha hecho uso de dos frameworks: **Slim y Angular**. Slim para la creación de una API que se encargará de dar respuesta a las peticiones y Angular para el desarrollo de la aplicación web (frontend).
 
 ## Despliegue
 Para desplegar la API se necesitan **Apache**, **PHP**, **Composer** y **MySQL** (con la base de datos de Shikoba). Para instalar las dependencias del proyecto se utiliza el siguiente comando desde el directorio raíz:
 ```
 composer install
 ```
-Para desplegar el frontend es necesario tener instalados **Node.js** y **Angular**. Se utiliza el siguiente comando desde el directorio raíz:
+Para desplegar la aplicación web (frontend) es necesario tener instalados **Node.js** y **Angular**. Se utiliza el siguiente comando desde el directorio raíz:
 ```
 npm install
 ```
