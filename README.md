@@ -8,7 +8,7 @@ Su finalidad consiste en dar una solución al profesorado para que pueda llevar 
 Para ello, se ha hecho uso de dos frameworks de PHP: **Slim y Angular**. Slim para la creación de una API que se encargará de dar respuesta a las peticiones y Angular para el desarrollo del frontend.
 
 ## Despliegue
-Para desplegar la API se necesita un servidor web (por ejemplo **Apache**) y **Composer**. Para instalar las dependencias del proyecto se utiliza el siguiente comando desde el directorio raíz:
+Para desplegar la API se necesitan **Apache**, **PHP**, **Composer** y **MySQL** (con la base de datos de Shikoba). Para instalar las dependencias del proyecto se utiliza el siguiente comando desde el directorio raíz:
 ```
 composer install
 ```
