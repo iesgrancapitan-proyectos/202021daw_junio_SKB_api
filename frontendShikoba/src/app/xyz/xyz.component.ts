@@ -13,7 +13,9 @@ export class XyzComponent implements OnInit {
   constructor(private api:ApiService, private auth:AuthService) { }
 
   ngOnInit(): void {
-    
+    if(this.auth.cookies.get("email") != ""){
+      this.auth.relocate(this.auth.cookies.get("location"));
+    }
   }
 
   login(){

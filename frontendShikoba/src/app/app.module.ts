@@ -18,6 +18,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 
 import es from '@angular/common/locales/es';
+import { PartesComponent } from './partes/partes.component';
 //import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(es);
@@ -27,7 +28,8 @@ registerLocaleData(es);
     AppComponent,
     XyzComponent,
     IndexComponent,
-    CotutoriasComponent
+    CotutoriasComponent,
+    PartesComponent
   ],
   imports: [
     BrowserModule,

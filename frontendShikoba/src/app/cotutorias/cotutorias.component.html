@@ -1,64 +1,92 @@
-<ul class="nav gridUl bcblue">
-  <li class="nav-item logoShikoba">
-  </li>
-  <li class="nav-item">
-    <a class="nav-link lBlanco tAlCenter" [routerLink]="" (click)="locationIndex()">Partes</a>
-  </li>
-  <li class="nav-item bcLight">
-    <a class="lBlanco nav-link tAlCenter" [routerLink]="" >Cotutorías</a>
-  </li>
-  <li class="nav-item datosUsuario lBlanco">
-    <p class="datosP">{{api.usuario.nombre}} {{api.usuario.apellido1}}</p>
-    <button (click)="logout()">Logout</button>
-  </li>
-</ul>
-
-<form>
-  <div class="searchbar" [class.hide]="mostrarCartas">
-    <input class="form-control search" type="search" id="search1" aria-label="Search" placeholder="Tus cotutorías" mdbInput>
+<div class="nave bcblue">
+  <div class="naveDiv logoShikoba"></div>
+  <div class="naveDiv  menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('index')">Indicaciones</a></div>
+  <div class="naveDiv bcLight menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('cotutorias')">Cotutorías</a></div>
+  <div class="naveDiv menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('partes')">Partes</a></div>
+  <div class="naveDiv datosUsuario lBlanco">
+    <img class="profile" src="{{auth.cookies.get('emailFoto')}}">
+    <span  class="logout"><img (click)="cancelar()" src="../../assets/img/logout_black_24dp.svg"> </span>
   </div>
-</form>
+</div>
 
-<div class="cartas" [class.hide]="mostrarCartas">
-  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let alumnosCot of api.alumnosCot" (click)="accedeAlumno(alumnosCot.idAlumno)">
-    <div class="card-header bigText">{{alumnosCot.idAlumno.nombre}} {{alumnosCot.idAlumno.apellido1}} {{alumnosCot.idAlumno.apellido2}}</div>
-    <div class="card-body">
-      <p class="card-title">Curso: {{alumnosCot.idAlumno.idCurso}}</p>
-    </div>
-  </button>
+<div [class.hide]="mostrarCartas">
+  <form class="searchbar" >
+    <img src="../../assets/img/search_black_24dp.svg">
+    <input [ngModel]='busqueda' (ngModelChange)="buscar($event)" class="search" type="search" name="search1" aria-label="Search" placeholder="  Buscar tus cotutorías" mdbInput>
+  </form>
+</div>
+<div *ngIf="api.busqueda.length != 0; else noBusqueda" [class.hide]="mostrarCartas">
+<div class="bg-light entradas" *ngFor="let busqueda of api.busqueda" (click)="accedeAlumno(busqueda)" >
+  <div class="entradas-img"></div>
+  <div class="entradas-nombre">{{busqueda.nombre}} {{busqueda.apellido1}} {{busqueda.apellido2}}</div>
+  <div class="entradas-curso">{{api.getNombreCurso(busqueda.idCurso)}}</div>
+</div>
 </div>
 
 <h4 class="nombreAl" [class.hide]="mostrarAlumno">Informes de {{nombre}}</h4>
 
 <form class="nombreAl" name="fF" [class.hide]="mostrarAlumno" #itemForm="ngForm" (ngSubmit)="buscarFecha(fechaInicial)">
-  <table class="table table-bordered">
+  <div class="indicacionFechas">
+  <table class="table table-bordered tabla">
     <tr>
-      <th scope="col" (click)="cambiarSemana(-1)">-</th>
+      <th scope="col" (click)="cambiarSemana(-1)"><</th>
       <th scope="col">{{fechaInicialCadena}} - {{fechaFinalCadena}}</th>
-      <th scope="col" (click)="cambiarSemana(1)">+</th>
+      <th scope="col" (click)="cambiarSemana(1)">></th>
     </tr>
   </table>
 
-  <table class="table table-bordered">
+  <table class="table table-bordered tabla">
     <tr>
-      <th scope="col" (click)="cambiarDia(0)">L</th>
-      <th scope="col" (click)="cambiarDia(1)">M</th>
-      <th scope="col" (click)="cambiarDia(2)">X</th>
-      <th scope="col" (click)="cambiarDia(3)">J</th>
-      <th scope="col" (click)="cambiarDia(4)">V</th>
+      <th scope="col" [ngClass]="{'diaEscogido': diaEscogido==0}" (click)="cambiarDia(0)">L</th>
+      <th scope="col" [ngClass]="{'diaEscogido': diaEscogido==1}" (click)="cambiarDia(1)">M</th>
+      <th scope="col" [ngClass]="{'diaEscogido': diaEscogido==2}" (click)="cambiarDia(2)">X</th>
+      <th scope="col" [ngClass]="{'diaEscogido': diaEscogido==3}" (click)="cambiarDia(3)">J</th>
+      <th scope="col" [ngClass]="{'diaEscogido': diaEscogido==4}" (click)="cambiarDia(4)">V</th>
     </tr>
   </table>
+</div>
 </form>
 
-<div class="cartas" [class.hide]="mostrarAlumno">
-  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let informe of api.informesAlumno">
-    <div class="card-body">
-      <p class="card-title">Profesor: {{informe.idProfesor.nombre}} {{informe.idProfesor.apellido1}} {{informe.idProfesor.apellido2}}</p>
-      <p class="card-title">Asignatura: {{informe.idMateria.nombre}} </p>
-      <p class="card-title">Hora: {{informe.hora}}</p>
-      <p class="card-title">Actitud: {{informe.idActitud.actitud}} </p>
-      <p class="card-title">Comportamiento: {{informe.idComportamiento.comportamiento}} </p>
-    </div>
-  </button>
+<div *ngIf="api.informesAlumno.length != 0; else noIndicaciones" class="indicaciones" [class.hide]="mostrarAlumno">
+  <table class="tablaIndicaciones">
+    <tr class="filaIndicaciones categorias">
+      <th>Profesor</th>
+      <th>Asignatura</th>
+      <th>Hora</th>
+      <th>Actitud</th>
+      <th>Comportamiento</th>
+    </tr>
+    <tr class="filaIndicaciones" *ngFor="let informe of api.informesAlumno">
+      <th>{{informe.idProfesor.nombre}} {{informe.idProfesor.apellido1}} {{informe.idProfesor.apellido2}}</th>
+      <th>{{informe.idMateria.nombre}}</th>
+      <th>{{informe.hora}}ª</th>
+      <th>{{informe.idActitud.actitud}}</th>
+      <th>{{informe.idComportamiento.comportamiento}}</th>
+    </tr>
+  </table>
 </div>
 
+<ng-template #noIndicaciones>
+  <div [class.hide]="mostrarAlumno">
+    <p class="sinResultados">No se han encontrado resultados</p>
+  </div>
+</ng-template>
+
+<ng-template #noBusqueda>
+  <div>
+    <p class="sinResultados">No se han encontrado resultados</p>
+  </div>
+</ng-template>
+
+<div [class.hide]="salir" class="form-check modEnviar">
+  
+  <div class="mod-content-enviar">
+    <span (click)="cancelar()" class="close">&times;</span><br>
+    <div class="mceFlex">
+      <img src="../../assets/img/logout.png" class="enviadoImg">
+      <p class="enviadoText">¿Seguro que quieres salir?</p>
+      <div (click)="logout()" class="volver">Salir </div>
+    </div>
+    
+ </div>
+</div>

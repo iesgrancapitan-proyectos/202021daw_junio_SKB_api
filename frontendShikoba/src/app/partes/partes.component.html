@@ -1,0 +1,98 @@
+<div class="nave bcblue">
+  <div class="naveDiv logoShikoba"></div>
+  <div class="naveDiv menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('index')">Indicaciones</a></div>
+  <div class="naveDiv menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('cotutorias')">Cotutorías</a></div>
+  <div class="naveDiv bcLight menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('partes')">Partes</a></div>
+  <div class="naveDiv datosUsuario lBlanco">
+    <img class="profile" src="{{auth.cookies.get('emailFoto')}}">
+    <span  class="logout"><img (click)="cancelar()" src="../../assets/img/logout_black_24dp.svg"> </span>
+  </div>
+</div>
+  
+<div [class.hide]="mostrarAlumnos">
+<form class="searchbar" >
+  <img src="../../assets/img/search_black_24dp.svg">
+  <input [ngModel]='busqueda' (ngModelChange)="buscar($event)" class="search" type="search" name="search1" aria-label="Search" placeholder="  Buscar alumnos" mdbInput>
+</form>
+</div>
+<div *ngIf="api.busqueda.length != 0; else noBusqueda">
+<div class="bg-light entradas" *ngFor="let busqueda of api.busqueda" (click)="accedeAlumno(busqueda)" [class.hide]="mostrarAlumnos">
+  <div class="entradas-img"></div>
+  <div class="entradas-nombre">{{busqueda.nombre}} {{busqueda.apellido1}} {{busqueda.apellido2}}</div>
+  <div class="entradas-curso">{{api.getNombreCurso(busqueda.idCurso)}}</div>
+</div>
+</div>
+  
+  
+  <h4 class="nombreAl" [class.hide]="mostrarForm" >Parte sobre {{nombre}}</h4>
+  <div [class.hide]="mostrarForm">
+  <form class="formulario"  method="get" #itemForm="ngForm" (ngSubmit)="enviar()">
+    <div class="form-group">
+      <label for="inputAddress">Fecha</label>
+      <input [(ngModel)]="fecha" type="date" class="form-control form-input" id="inputAddress" name="fecha">
+    </div>
+
+    <div class="form-group">
+        <label for="inputAddress">Conductas</label>
+        <div class="form-control form-input dConductas" (click)="verConductas()">Desplegar
+          <p style="text-align: right;">▼</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Descripción</label>
+        <textarea [(ngModel)]="descripcion" class="form-control" id="descripcion" name="descripcion"rows="3"></textarea>
+      </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Tareas</label>
+        <textarea [(ngModel)]="tareas" class="form-control" id="tareas" name="tareas" rows="3"></textarea>
+    </div>
+    <div class="form-group expulsion">
+      <label class="" for="flexCheckDefault">Expulsión al aula de convinvencia</label>
+      <input [(ngModel)]="expulsion" class="checkExpulsion" type="checkbox" value="true" name="expulsion">
+      
+    </div>
+
+
+    <input type="submit" class="btn btn-primary" value="Enviar"/>
+  </form>
+</div>
+
+  <div [class.hide]="mostrarConductas" class="form-check mod">
+    <div class="mod-content">
+      <span (click)="verConductas()" class="close">&times;</span><br>
+      <div *ngFor="let conducta of api.conductas" class="checkConductas">
+          <input class="form-check-input" type="checkbox" name=conducta.id [value]="conducta.id">
+          <label class="form-check-label" for="defaultCheck1">({{conducta.puntos}}) - {{conducta.conducta}}</label>
+      </div>
+   </div>
+  </div>
+  
+  <ng-template #noBusqueda>
+    <div>
+      <p class="sinResultados">No se han encontrado resultados</p>
+    </div>
+  </ng-template>
+  
+  <div [class.hide]="enviado" class="form-check modEnviar">
+    <div class="mod-content-enviar">
+      <img src="../../assets/img/sent.png" class="enviadoImg">
+      <p class="enviadoText">¡Enviado con éxito!</p>
+      <div (click)="refresh()" class="volver">Volver</div>
+   </div>
+  </div>
+
+  <div [class.hide]="salir" class="form-check modEnviar">
+  
+    <div class="mod-content-logout">
+      <span (click)="cancelar()" class="close">&times;</span><br>
+      <div class="mceFlex">
+        <img src="../../assets/img/logout.png" class="enviadoImg">
+        <p class="enviadoText">¿Seguro que quieres salir?</p>
+        <div (click)="logout()" class="volver">Salir </div>
+      </div>
+      
+   </div>
+  </div>
+  

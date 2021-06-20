@@ -2,45 +2,44 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-  email:string = "";
-  constructor(private fire:AngularFireAuth, private router:Router) {
-    this.email = localStorage.getItem("email");
+  constructor(private fire:AngularFireAuth, private router:Router, public cookies:CookieService) {
+    
   }
-
+  
+ 
   login(){
     this.fire.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then(res => {
-      console.log("Logeado");
-      this.fire.user.subscribe(lg => {
-        this.router.navigate(["/index"]);
-        localStorage.setItem("email", lg.email)
+      this.fire.user.subscribe(lg => {      
+        if(lg.email.split('@')[1] == "iesgrancapitan.org"){
+          this.cookies.set("emailFoto", lg.photoURL)
+          this.cookies.set("email", lg.email, 0.25);
+          this.cookies.set("location", "index");
+          this.router.navigate(["/index"]);
+        }else{
+        }
       })
       
       }, err => {
-        console.log("Error al logearse");
       })
   }
 
   logout(){
     this.fire.signOut().then(res => {
-      console.log("Deslogeado");
-      localStorage.removeItem("email");
+      this.cookies.deleteAll();
       this.router.navigate(["/home"]);
       }, err => {
-        console.log("Error al deslogearse");
       })
   }
 
-  locationCotutorias(){
-    this.router.navigate(["/cotutorias"]);
-  }
-
-  locationIndex(){
-    this.router.navigate(["/index"]);
+  relocate(location:string){
+    this.cookies.set("relocate", "proper")
+    this.router.navigate(["/"+location]);
   }
 }

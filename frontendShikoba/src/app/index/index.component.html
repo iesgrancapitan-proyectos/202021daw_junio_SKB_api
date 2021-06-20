@@ -1,53 +1,53 @@
-
-<ul class="nav gridUl bcblue">
-  <li class="nav-item logoShikoba">
-  </li>
-  <li class="nav-item bcLight">
-    <a class="nav-link lBlanco tAlCenter" [routerLink]="">Partes</a>
-  </li>
-  <li class="nav-item">
-    <a class="lBlanco nav-link tAlCenter" [routerLink]="" (click)="locationCotutorias()">Cotutorías</a>
-  </li>
-  <li class="nav-item datosUsuario lBlanco">
-    <p class="datosP">{{api.usuario.nombre}} {{api.usuario.apellido1}}</p>
-    <button (click)="logout()">Logout</button>
-  </li>
-</ul>
-
-<form>
-  <div class="searchbar" [class.hide]="mostrarAlumnos">
-    <input class="form-control search" type="search" id="search1" aria-label="Search" placeholder="Buscar alumnos" mdbInput>
+<div class="nave bcblue">
+  <div class="naveDiv logoShikoba"></div>
+  <div class="naveDiv bcLight menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('index')">Indicaciones</a></div>
+  <div class="naveDiv menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('cotutorias')">Cotutorías</a></div>
+  <div class="naveDiv menu"><a class="lBlanco" [routerLink]="" (click)="auth.relocate('partes')">Partes</a></div>
+  <div class="naveDiv datosUsuario lBlanco">
+    <img class="profile" src="{{auth.cookies.get('emailFoto')}}">
+    <div class="datosP"></div>
+    <span  class="logout"><img (click)="cancelar()" src="../../assets/img/logout_black_24dp.svg"> </span>
   </div>
-</form>
+</div>
 
-<div class="cartas" [class.hide]="mostrarAlumnos">
-  <button class="card bg-light mb-3 formulario" style="max-width: 18rem;" *ngFor="let cotutorias of api.cotutorias" (click)="accedeAlumno(cotutorias)">
-    <div class="card-header bigText">{{cotutorias.idAlumno.nombre}} {{cotutorias.idAlumno.apellido1}} {{cotutorias.idAlumno.apellido2}}</div>
-    <div class="card-body">
-      <p class="card-title">Curso: {{cotutorias.idAlumno.idCurso}}</p>
-    </div>
-  </button>
+<div [class.hide]="mostrarAlumnos">
+  <form class="searchbar" >
+    <img src="../../assets/img/search_black_24dp.svg">
+    <input [ngModel]='busqueda' (ngModelChange)="buscar($event)" class="search" type="search" name="search1" aria-label="Search" placeholder="  Buscar alumnos" mdbInput>
+  </form>
+</div>
+
+<div *ngIf="api.busqueda.length != 0; else noBusqueda">
+  <div class="bg-light entradas" *ngFor="let busqueda of api.busqueda" (click)="accedeAlumno(busqueda)" [class.hide]="mostrarAlumnos">
+    <div class="entradas-img"></div>
+    <div class="entradas-nombre">{{busqueda.nombre}} {{busqueda.apellido1}} {{busqueda.apellido2}}</div>
+    <div class="entradas-curso">{{api.getNombreCurso(busqueda.idCurso)}}</div>
+  </div>
 </div>
 
 <h4 class="nombreAl" [class.hide]="mostrarForm" >Informe sobre {{nombre}}</h4>
 
-<form class="formulario" [class.hide]="mostrarForm" method="get" #itemForm="ngForm" (ngSubmit)="enviar()"> 
+<div [class.hide]="mostrarForm">
+<form class="formulario"  method="get" #itemForm="ngForm" (ngSubmit)="enviar()">
+  <div [class.hide]="incompleto" class="incompleto">
+    <p>* Uno o más campos están vacíos o son erróneos. Rellene los campos e inténtelo de nuevo.</p>
+  </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="exampleFormControlSelect1">Asignatura</label>
-      <select [(ngModel)]="asignatura" class="form-control form-input" id="exampleFormControlSelect1" name="asignatura">
+      <label class="label" for="exampleFormControlSelect1">Asignatura*</label>
+      <select [(ngModel)]="asignatura" class="form-control form-input formElement" id="exampleFormControlSelect1" name="asignatura">
         <option *ngFor="let materia of api.materias" [value]="materia.id">{{materia.nombre}}</option>
       </select>
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAddress">Fecha</label>
-    <input [(ngModel)]="fecha" type="date" class="form-control form-input" id="inputAddress" name="fecha">
+    <label class="label" for="inputAddress">Fecha</label>
+    <input [(ngModel)]="fecha" type="date" class="form-control form-input formElement"  id="inputAddress" name="fecha">
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="exampleFormControlSelect1">Hora</label>
-      <select [(ngModel)]="hora" class="form-control form-input" id="exampleFormControlSelect1" name="hora">
+      <label class="label" for="exampleFormControlSelect1">Hora*</label>
+      <select [(ngModel)]="hora" class="form-control form-input formElement" id="exampleFormControlSelect1" name="hora">
         <option value="1">1ª</option>
         <option value="2">2ª</option>
         <option value="3">3ª</option>
@@ -58,9 +58,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="formControlRange">Comportamiento</label><br>
-    <div>
-      <table class="table table-bordered">
+    <label class="label" for="formControlRange">Comportamiento*</label><br>
+    <div class="formElement">
+      <table class="tabla">
         <tr>
           <th scope="col">1</th>
           <th scope="col">2</th>
@@ -69,7 +69,7 @@
           <th scope="col">5</th>
         </tr>
       </table >
-      <table class="table table-bordered">
+      <table class="tabla">
         <tr>
           <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="1" name="comportamiento" value="1"></th>
           <th scope="col"><input [(ngModel)]="comportamiento" type="radio" id="2" name="comportamiento" value="2"></th>
@@ -81,9 +81,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="formControlRange">Actitud</label><br>
-    <div>
-      <table class="table table-bordered">
+    <label class="label" for="formControlRange">Actitud*</label><br>
+    <div class="formElement">
+      <table class="tabla">
         <tr>
           <th scope="col">1</th>
           <th scope="col">2</th>
@@ -92,7 +92,7 @@
           <th scope="col">5</th>
         </tr>
       </table >
-      <table class="table table-bordered">
+      <table class=" tabla">
         <tr>
           <th scope="col"><input [(ngModel)]="actitud" type="radio" id="1" name="actitud" value="1"></th>
           <th scope="col"><input [(ngModel)]="actitud" type="radio" id="2" name="actitud" value="2"></th>
@@ -105,3 +105,31 @@
   </div>
   <input type="submit" class="btn btn-primary" value="Enviar"/>
 </form>
+</div>
+
+<ng-template #noBusqueda>
+  <div>
+    <p class="sinResultados">No se han encontrado resultados</p>
+  </div>
+</ng-template>
+
+<div [class.hide]="enviado" class="form-check modEnviar">
+  <div class="mod-content-enviar">
+    <img src="../../assets/img/sent.png" class="enviadoImg">
+    <p class="enviadoText">¡Enviado con éxito!</p>
+    <div (click)="refresh()" class="volver">Volver</div>
+ </div>
+</div>
+
+<div [class.hide]="salir" class="form-check modEnviar">
+  
+  <div class="mod-content-enviar">
+    <span (click)="cancelar()" class="close">&times;</span><br>
+    <div class="mceFlex">
+      <img src="../../assets/img/logout.png" class="enviadoImg">
+      <p class="enviadoText">¿Seguro que quieres salir?</p>
+      <div (click)="logout()" class="volver">Salir </div>
+    </div>
+    
+ </div>
+</div>
